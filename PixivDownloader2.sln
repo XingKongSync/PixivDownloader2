@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixivDownloader2", "PixivDownloader2\PixivDownloader2.csproj", "{162CBF31-7CBA-4186-8EC3-78770BCFC13F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{6D571794-8F5E-4A6D-B68D-FD631CFF2905}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{162CBF31-7CBA-4186-8EC3-78770BCFC13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{162CBF31-7CBA-4186-8EC3-78770BCFC13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{162CBF31-7CBA-4186-8EC3-78770BCFC13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{162CBF31-7CBA-4186-8EC3-78770BCFC13F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D571794-8F5E-4A6D-B68D-FD631CFF2905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D571794-8F5E-4A6D-B68D-FD631CFF2905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D571794-8F5E-4A6D-B68D-FD631CFF2905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D571794-8F5E-4A6D-B68D-FD631CFF2905}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
