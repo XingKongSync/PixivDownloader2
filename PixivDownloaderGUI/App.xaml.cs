@@ -17,6 +17,7 @@ namespace PixivDownloaderGUI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             if (e != null && e.Args != null)
             {

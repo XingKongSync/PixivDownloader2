@@ -271,11 +271,15 @@ namespace PixivDownloaderGUI
         {
             if (page != null)
             {
-                var picList = page.LazyLoad();
-                dispatcher.Invoke(() =>
+                if (page.CanLazyLoad())
                 {
-                    picList?.ForEach(p => IllustCollection.Add(new IllustVM(dispatcher, p, page.ReferUrl)));
-                });
+                    DispatcherShowMessage("加载中...");
+                    var picList = page.LazyLoad();
+                    dispatcher.Invoke(() =>
+                    {
+                        picList?.ForEach(p => IllustCollection.Add(new IllustVM(dispatcher, p, page.ReferUrl)));
+                    });
+                }
             }
         }
 

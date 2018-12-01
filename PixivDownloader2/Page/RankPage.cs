@@ -76,9 +76,18 @@ namespace PixivDownloader2.Page
             Init(rankType, page, date.ToString("yyyyMMdd"), autoLoadAll);
         }
 
-        public List<ContentsItem> LazyLoad()
+        public bool CanLazyLoad()
         {
             if (response != null && response.next != -1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public List<ContentsItem> LazyLoad()
+        {
+            if (CanLazyLoad())
             {
                 url = PixivURLHelper.GetRankUrl(RankType, true, response.next, RankDate);
                 json = HttpUtils.Get(url);
