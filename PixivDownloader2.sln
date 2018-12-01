@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixivDownloader2", "PixivDo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{6D571794-8F5E-4A6D-B68D-FD631CFF2905}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixivDownloaderGUI", "PixivDownloaderGUI\PixivDownloaderGUI.csproj", "{32CECBD7-05B3-4ACF-B55D-C8A2E1596E90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6D571794-8F5E-4A6D-B68D-FD631CFF2905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D571794-8F5E-4A6D-B68D-FD631CFF2905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D571794-8F5E-4A6D-B68D-FD631CFF2905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32CECBD7-05B3-4ACF-B55D-C8A2E1596E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32CECBD7-05B3-4ACF-B55D-C8A2E1596E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32CECBD7-05B3-4ACF-B55D-C8A2E1596E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32CECBD7-05B3-4ACF-B55D-C8A2E1596E90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
