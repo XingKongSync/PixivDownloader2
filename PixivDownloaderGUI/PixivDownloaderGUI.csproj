@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\AlignableWrapPanel.cs" />
     <Compile Include="Convert\RevertBooleanToVisibilityConverter.cs" />
     <Compile Include="Convert\StringToImageSourceConverter.cs" />
     <Compile Include="Convert\StringToVisibilityConverter.cs" />

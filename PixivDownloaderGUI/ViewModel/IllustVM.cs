@@ -20,6 +20,7 @@ namespace PixivDownloaderGUI.ViewModel
 
         private string title;
         private string userName;
+        private int rank;
         private string picFilePath;
         private int width;
         private int height;
@@ -49,6 +50,16 @@ namespace PixivDownloaderGUI.ViewModel
             {
                 userName = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UserName)));
+            }
+        }
+
+        public int Rank
+        {
+            get => rank;
+            set
+            {
+                rank = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Rank)));
             }
         }
 
@@ -135,6 +146,7 @@ namespace PixivDownloaderGUI.ViewModel
                 RawContentItem = content;
                 Title = content.title;
                 UserName = content.user_name;
+                Rank = content.rank;
                 Width = content.width;
                 Height = content.height;
                 MultiPageCount = int.Parse(content.illust_page_count);

@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PixivDownloaderGUI.View"
         xmlns:convert="clr-namespace:PixivDownloaderGUI.Convert"
+        xmlns:ctr="clr-namespace:PixivDownloaderGUI.Controls"
         mc:Ignorable="d"
-        Title="MangaPreviewWindow" Height="720" Width="1280">
+        Title="多图预览" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <convert:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
+        <convert:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
     </Window.Resources>
     <Grid>
         <ListBox ItemsSource="{Binding ThumbnailCollection}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
+                    <ctr:AlignableWrapPanel HorizontalAlignment="Center"></ctr:AlignableWrapPanel>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
@@ -32,5 +34,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Border Visibility="{Binding AlertMessage, Converter={StaticResource StringToVisibilityConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="30" Background="#AFAF1414">
+            <TextBlock Text="{Binding AlertMessage}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+        </Border>
     </Grid>
 </Window>

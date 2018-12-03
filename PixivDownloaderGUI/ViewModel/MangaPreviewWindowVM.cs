@@ -18,6 +18,7 @@ namespace PixivDownloaderGUI.ViewModel
 
         private Dispatcher dispatcher;
         private string illustId;
+        private string alertMessage = "加载中...";
 
         private ObservableCollection<MangaBigPageVM> thumbnailCollection;
 
@@ -35,6 +36,18 @@ namespace PixivDownloaderGUI.ViewModel
             }
         }
 
+        /// <summary>
+        /// 提示信息
+        /// </summary>
+        public string AlertMessage
+        {
+            get => alertMessage;
+            set
+            {
+                alertMessage = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlertMessage)));
+            }
+        }
 
         public MangaPreviewWindowVM(Dispatcher dispatcher, string illustId)
         {
@@ -64,9 +77,33 @@ namespace PixivDownloaderGUI.ViewModel
                     }
                 }
 
+                DispatcherShowMessage("加载完成");
             });
         }
 
-  
+        /// <summary>
+        /// 在主线程外显示提示信息
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        private void DispatcherShowMessage(string msg)
+        {
+            dispatcher?.Invoke(async () =>
+            {
+                await ShowMessage(msg);
+            });
+        }
+
+        /// <summary>
+        /// 显示提示信息
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        private async Task ShowMessage(string msg)
+        {
+            AlertMessage = msg;
+            await Task.Delay(5000);
+            AlertMessage = null;
+        }
     }
 }

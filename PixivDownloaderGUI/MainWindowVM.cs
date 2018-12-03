@@ -152,7 +152,7 @@ namespace PixivDownloaderGUI
             LoginWindow login = new LoginWindow();
             if (login.ShowDialog() == true)
             {
-                DispatcherShowMessage("登录中...");
+                DispatcherShowMessage("登录中...", false);
                 Task.Run(() =>
                 {
                     try
@@ -273,11 +273,12 @@ namespace PixivDownloaderGUI
             {
                 if (page.CanLazyLoad())
                 {
-                    DispatcherShowMessage("加载中...");
+                    DispatcherShowMessage("加载中...", false);
                     var picList = page.LazyLoad();
-                    dispatcher.Invoke(() =>
+                    dispatcher.Invoke(async () =>
                     {
                         picList?.ForEach(p => IllustCollection.Add(new IllustVM(dispatcher, p, page.ReferUrl)));
+                        await ShowMessage(null);
                     });
                 }
             }
@@ -317,11 +318,11 @@ namespace PixivDownloaderGUI
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        private  void DispatcherShowMessage(string msg)
+        private  void DispatcherShowMessage(string msg, bool autoDismiss = true)
         {
             dispatcher?.Invoke(async () =>
             {
-                await ShowMessage(msg);
+                await ShowMessage(msg, autoDismiss);
             });
         }
 
@@ -330,11 +331,14 @@ namespace PixivDownloaderGUI
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        private async Task ShowMessage(string msg)
+        private async Task ShowMessage(string msg, bool autoDismiss = true)
         {
             AlertMessage = msg;
-            await Task.Delay(5000);
-            AlertMessage = null;
+            if (autoDismiss)
+            {
+                await Task.Delay(5000);
+                AlertMessage = null;
+            }
         }
     }
 }

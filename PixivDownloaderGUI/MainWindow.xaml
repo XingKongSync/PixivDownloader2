@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:PixivDownloaderGUI"
         xmlns:convert="clr-namespace:PixivDownloaderGUI.Convert"
         xmlns:enum="clr-namespace:PixivDownloader2.Enum;assembly=PixivDownloader2"
+        xmlns:ctr="clr-namespace:PixivDownloaderGUI.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="Pixiv排行榜" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <convert:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
         <convert:RevertBooleanToVisibilityConverter x:Key="RevertBooleanToVisibilityConverter"/>
@@ -55,52 +56,64 @@
         </Grid>
         
         <!--主体图片区域-->
-        <ListBox Grid.Row="1" ItemsSource="{Binding IllustCollection}" ScrollViewer.ScrollChanged="ListBox_ScrollChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox Grid.Row="1" ItemsSource="{Binding IllustCollection}" ScrollViewer.ScrollChanged="ListBox_ScrollChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Padding="0">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
+                    <ctr:AlignableWrapPanel HorizontalContentAlignment="Center"></ctr:AlignableWrapPanel>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Height="300" Width="300">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
-                        <!--预览图-->
-                        <Image Grid.ColumnSpan="2" Source="{Binding PicFilePath, Converter={StaticResource StringToImageSourceConverter}}" Stretch="Uniform"/>
-                        <!--作品名称等文本-->
-                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="0,5" FontWeight="Bold">
+                    <Border BorderThickness="1" Padding="5" BorderBrush="#FFD4D4D4">
+                        <Grid Height="300" Width="300">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+                            <!--预览图-->
+                            <Image Grid.ColumnSpan="2" Source="{Binding PicFilePath, Converter={StaticResource StringToImageSourceConverter}}" Stretch="Uniform"/>
+                            <!--作品名称等文本-->
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="0,5" FontWeight="Bold">
                             <Run Text="{Binding Title}"></Run>
-                        </TextBlock>
-                        <TextBlock Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,15">
+                            </TextBlock>
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,15">
                             <Run Text="{Binding UserName}"/>
-                        </TextBlock>
-                        <!--下载按钮-->
-                        <Button Visibility="{Binding HasMultiPage, Converter={StaticResource RevertBooleanToVisibilityConverter}}" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="60" Content="{Binding BtDownloadText}" Command="{Binding DownloadCommand}"/>
-                        <!--查看详情页按钮-->
-                        <Button Visibility="{Binding HasMultiPage, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="60" Content="查看详情" Command="{Binding OpenDetailCommand}"/>
-                        <!--是否多页-->
-                        <Border Visibility="{Binding HasMultiPage, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{StaticResource TransparentBackground}" Height="30" Width="30" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="{Binding MultiPageCount}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <!--分辨率-->
-                        <Border Grid.ColumnSpan="2" Background="{StaticResource TransparentBackground}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="30" Width="100">
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">
+                            </TextBlock>
+                            <!--下载按钮-->
+                            <Button Visibility="{Binding HasMultiPage, Converter={StaticResource RevertBooleanToVisibilityConverter}}" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="60" Content="{Binding BtDownloadText}" Command="{Binding DownloadCommand}"/>
+                            <!--查看详情页按钮-->
+                            <Button Visibility="{Binding HasMultiPage, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="30" Width="60" Content="查看详情" Command="{Binding OpenDetailCommand}"/>
+                            <!--是否多页-->
+                            <Border Visibility="{Binding HasMultiPage, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{StaticResource TransparentBackground}" Height="30" Width="30" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <TextBlock Text="{Binding MultiPageCount}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <!--排行榜名次-->
+                            <Grid Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Ellipse HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StrokeThickness="0" Fill="{StaticResource TransparentBackground}"></Ellipse>
+                                <TextBlock Text="{Binding Rank}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                            </Grid>
+                            <!--分辨率-->
+                            <Border Grid.ColumnSpan="2" Background="{StaticResource TransparentBackground}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="30" Width="100">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">
                                 <Run Text="{Binding Width}"/>
                                 <Run Text="x"/>
                                 <Run Text="{Binding Height}"/>
-                            </TextBlock>
-                        </Border>
-                    </Grid>
+                                </TextBlock>
+                            </Border>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="20,10"/>
+                </Style>
+            </ListBox.Resources>
         </ListBox>
         <Border Grid.Row="1" Visibility="{Binding AlertMessage, Converter={StaticResource StringToVisibilityConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="30" Background="#AFAF1414">
             <TextBlock Text="{Binding AlertMessage}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
