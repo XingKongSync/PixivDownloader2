@@ -191,12 +191,22 @@ namespace PixivDownloaderGUI.ViewModel
             illust.Init(RawContentItem.illust_id.ToString());
             if (string.IsNullOrEmpty(illust.LargePicUrl))
             {
+                //获取大图URL出错
                 dispatcher?.Invoke(() => { BtDownloadText = "下载失败"; });
             }
             else
             {
-                string filePath = await FileManager.DownloadAsync(illust.LargePicUrl, ReferUrl);
-                dispatcher?.Invoke(() => { BtDownloadText = "下载完成"; });
+                try
+                {
+                    string filePath = await FileManager.DownloadAsync(illust.LargePicUrl, ReferUrl);
+                    dispatcher?.Invoke(() => { BtDownloadText = "下载完成"; });
+                }
+                catch (Exception)
+                {
+                    //下载时遇到错误
+                    dispatcher?.Invoke(() => { BtDownloadText = "下载失败"; });
+                }
+
             }
             BtDownloadEnabled = true;
         }
