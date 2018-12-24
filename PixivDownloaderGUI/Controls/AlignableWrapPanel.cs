@@ -103,9 +103,11 @@ namespace PixivDownloaderGUI.Controls
         private void ArrangeLine(double y, Size lineSize, double boundsWidth, int start, int end)
         {
             double x = 0;
+            double delta = 0;
+            int lineCount = end - start + 1;
             if (this.HorizontalContentAlignment == HorizontalAlignment.Center)
             {
-                x = (boundsWidth - lineSize.Width) / 2;
+                x = delta = (boundsWidth - lineSize.Width) / lineCount;
             }
             else if (this.HorizontalContentAlignment == HorizontalAlignment.Right)
             {
@@ -117,8 +119,30 @@ namespace PixivDownloaderGUI.Controls
             {
                 UIElement child = children[i];
                 child.Arrange(new Rect(x, y, child.DesiredSize.Width, lineSize.Height));
-                x += child.DesiredSize.Width;
+                x += (child.DesiredSize.Width + delta);
             }
         }
+
+        //private void ArrangeLine(double y, Size lineSize, double boundsWidth, int start, int end)
+        //{
+        //    double x = 0;
+        //    int lineCount = end - start + 1;
+        //    if (this.HorizontalContentAlignment == HorizontalAlignment.Center)
+        //    {
+        //        x = (boundsWidth - lineSize.Width) / 2;
+        //    }
+        //    else if (this.HorizontalContentAlignment == HorizontalAlignment.Right)
+        //    {
+        //        x = (boundsWidth - lineSize.Width);
+        //    }
+
+        //    UIElementCollection children = InternalChildren;
+        //    for (int i = start; i < end; i++)
+        //    {
+        //        UIElement child = children[i];
+        //        child.Arrange(new Rect(x, y, child.DesiredSize.Width, lineSize.Height));
+        //        x += child.DesiredSize.Width;
+        //    }
+        //}
     }
 }
