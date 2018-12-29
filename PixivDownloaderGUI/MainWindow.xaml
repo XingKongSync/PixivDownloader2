@@ -105,6 +105,12 @@
                                 <Run Text="{Binding Height}"/>
                                 </TextBlock>
                             </Border>
+                            <!--右键菜单-->
+                            <Grid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="浏览器打开" Command="{Binding OpenReferUrlCommand}"/>
+                                </ContextMenu>
+                            </Grid.ContextMenu>
                         </Grid>
                     </Border>
                 </DataTemplate>

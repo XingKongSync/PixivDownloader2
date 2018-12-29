@@ -5,6 +5,7 @@ using PixivDownloaderGUI.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -131,10 +132,13 @@ namespace PixivDownloaderGUI.ViewModel
 
         public ICommand OpenDetailCommand { get; set; }
 
+        public ICommand OpenReferUrlCommand { get; set; }
+
         public IllustVM(Dispatcher dispatcher)
         {
             DownloadCommand = new DelegateCommand<object>(DownloadCommandHandler);
             OpenDetailCommand = new DelegateCommand<object>(OpenDetailCommandHandler);
+            OpenReferUrlCommand = new DelegateCommand<object>(OpenReferUrlCommandHandler);
             this.dispatcher = dispatcher;
         }
 
@@ -220,6 +224,16 @@ namespace PixivDownloaderGUI.ViewModel
             //弹出详细窗口
             MangaPreviewWindow window = new MangaPreviewWindow(RawContentItem.illust_id.ToString());
             window.Show();
+        }
+
+        /// <summary>
+        /// 用外部浏览器打开链接
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OpenReferUrlCommandHandler(object obj)
+        {
+            string url = PixivURLHelper.GetIllustUrl(RawContentItem.illust_id.ToString());
+            Process.Start(url);
         }
     }
 }
