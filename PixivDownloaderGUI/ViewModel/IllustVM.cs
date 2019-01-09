@@ -164,8 +164,12 @@ namespace PixivDownloaderGUI.ViewModel
         /// </summary>
         private async void LoadThumbnailAsync()
         {
-            string filePath = await FileManager.CacheAsync(RawContentItem.url, ReferUrl);
-            dispatcher?.Invoke(()=> { PicFilePath = filePath; });
+            try
+            {
+                string filePath = await FileManager.CacheAsync(RawContentItem.url, ReferUrl);
+                dispatcher?.Invoke(() => { PicFilePath = filePath; });
+            }
+            catch (Exception) { }
         }
 
         /// <summary>

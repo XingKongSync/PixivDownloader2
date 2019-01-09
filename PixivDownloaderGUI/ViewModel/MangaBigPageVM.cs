@@ -111,8 +111,17 @@ namespace PixivDownloaderGUI.ViewModel
             }
             else
             {
-                string filePath = await FileManager.DownloadAsync(bigPage.LargePicUrl, bigPage.PageUrl);
-                dispatcher?.Invoke(() => { BtDownloadText = "下载完成"; });
+                try
+                {
+                    string filePath = await FileManager.DownloadAsync(bigPage.LargePicUrl, bigPage.PageUrl);
+                    dispatcher?.Invoke(() => { BtDownloadText = "下载完成"; });
+                }
+                catch (Exception)
+                {
+                    //下载时遇到错误
+                    dispatcher?.Invoke(() => { BtDownloadText = "下载失败"; });
+                }
+              
             }
             BtDownloadEnabled = true;
         }
