@@ -74,5 +74,10 @@ namespace PixivDownloaderGUI
             }
             return isAtButtom;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _vm.CleanUp();
+        }
     }
 }

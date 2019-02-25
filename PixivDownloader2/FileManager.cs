@@ -57,5 +57,48 @@ namespace PixivDownloader2
             }
             return fileFullPathAndName;
         }
+
+        /// <summary>
+        /// 清理缓存目录
+        /// </summary>
+        public static void CleanCache()
+        {
+            DeleteOutdateFiles(CACHE_PATH, DateTime.Now.AddDays(-3));
+        }
+
+        /// <summary>
+        /// 清理多页作品缓存目录
+        /// </summary>
+        public static void CleanMangaPreviewCache()
+        {
+            DeleteOutdateFiles(MANGA_PREVIEW_CACHE_PATH, DateTime.Now.AddDays(-3));
+        }
+
+        /// <summary>
+        /// 删除指定目录下的过期文件
+        /// </summary>
+        /// <param name="directory">指定目录</param>
+        /// <param name="daysbefore">过期时间</param>
+        private static void DeleteOutdateFiles(string directory, DateTime daysbefore)
+        {
+            if (Directory.Exists(directory))
+            {
+                DirectoryInfo d = new DirectoryInfo(directory);
+                string basePath = d.FullName;
+                foreach (var file in d.GetFiles())
+                {
+                    //比较文件创建时间
+                    if (file.CreationTime < daysbefore)
+                    {
+                        //删除过期文件
+                        try
+                        {
+                            file.Delete();
+                        }
+                        catch (Exception) { }
+                    }
+                }
+            }
+        }
     }
 }

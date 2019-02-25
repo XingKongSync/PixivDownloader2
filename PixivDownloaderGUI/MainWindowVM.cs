@@ -1,4 +1,5 @@
-﻿using PixivDownloader2.Enum;
+﻿using PixivDownloader2;
+using PixivDownloader2.Enum;
 using PixivDownloader2.Page;
 using PixivDownloaderGUI.ViewModel;
 using System;
@@ -339,6 +340,16 @@ namespace PixivDownloaderGUI
                 await Task.Delay(5000);
                 AlertMessage = null;
             }
+        }
+
+        /// <summary>
+        /// 主界面退出时触发
+        /// 清理缓存
+        /// </summary>
+        public void CleanUp()
+        {
+            FileManager.CleanCache();
+            FileManager.CleanMangaPreviewCache();
         }
     }
 }
