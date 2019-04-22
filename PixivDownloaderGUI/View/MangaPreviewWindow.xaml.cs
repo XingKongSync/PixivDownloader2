@@ -27,9 +27,9 @@ namespace PixivDownloaderGUI.View
             InitializeComponent();
         }
 
-        public MangaPreviewWindow(string illustId): this()
+        public MangaPreviewWindow(string illustId, int pageCount): this()
         {
-            _vm = new MangaPreviewWindowVM(Dispatcher, illustId);
+            _vm = new MangaPreviewWindowVM(Dispatcher, illustId, pageCount);
             DataContext = _vm;
         }
     }

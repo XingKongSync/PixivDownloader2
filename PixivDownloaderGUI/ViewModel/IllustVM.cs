@@ -226,7 +226,7 @@ namespace PixivDownloaderGUI.ViewModel
         private void OpenDetailCommandHandler(object obj)
         {
             //弹出详细窗口
-            MangaPreviewWindow window = new MangaPreviewWindow(RawContentItem.illust_id.ToString());
+            MangaPreviewWindow window = new MangaPreviewWindow(RawContentItem.illust_id.ToString(), int.Parse(RawContentItem.illust_page_count));
             window.Show();
         }
 

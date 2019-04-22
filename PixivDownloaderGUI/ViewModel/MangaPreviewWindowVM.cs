@@ -18,6 +18,7 @@ namespace PixivDownloaderGUI.ViewModel
 
         private Dispatcher dispatcher;
         private string illustId;
+        private int pageCount;
         private string alertMessage = "加载中...";
 
         private ObservableCollection<MangaBigPageVM> thumbnailCollection;
@@ -49,10 +50,11 @@ namespace PixivDownloaderGUI.ViewModel
             }
         }
 
-        public MangaPreviewWindowVM(Dispatcher dispatcher, string illustId)
+        public MangaPreviewWindowVM(Dispatcher dispatcher, string illustId, int pageCount)
         {
             this.illustId = illustId;
             this.dispatcher = dispatcher;
+            this.pageCount = pageCount;
             LoadThumbnailAsync();
         }
 
@@ -65,7 +67,7 @@ namespace PixivDownloaderGUI.ViewModel
             Task.Run(async () =>
             {
                 MangaPage page = new MangaPage();
-                page.Init(illustId);
+                page.Init(illustId, pageCount);
 
                 if (page != null && page.ThumbnailUrls != null)
                 {

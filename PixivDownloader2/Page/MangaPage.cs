@@ -20,22 +20,23 @@ namespace PixivDownloader2.Page
             set => thumbnailUrls = value;
         }
 
-        public override void Init(string illustId)
+        public void Init(string illustId, int pageCount)
         {
             base.Init(illustId);
 
             //搜索缩略图url
             SubStringResult result = null;
             int startIndex = 0;
-            do
+            result = AdvancedSubString.SubString(html, "https:\\/\\/i.pximg.net\\/img-original", "\"},\"tags\":", startIndex, false, false);
+            if (result.IsSuccess)
             {
-                result = AdvancedSubString.SubString(html, "data-src=\"", "\" data-index=", startIndex, false, false);
-                if (result.IsSuccess)
+                string p0url = "https://i.pximg.net/img-original" + result.ResultText.Replace("\\", "");
+                ThumbnailUrls.Add(p0url);
+                for (int i = 1; i < pageCount; i++)
                 {
-                    ThumbnailUrls.Add(result.ResultText);
-                    startIndex = result.EndIndex;
+                    ThumbnailUrls.Add(p0url.Replace("p0", $"p{i}"));
                 }
-            } while (result != null && result.IsSuccess);
+            }
         }
 
         protected override string GetPageUrl(string illustId)
