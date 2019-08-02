@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -22,6 +23,24 @@ namespace PixivDownloader2.Page
                 }
                 return false;
             }
+        }
+
+        public static void Init(string cookieStr)
+        {
+            CookieCollection myCookieContainer = new CookieCollection();
+
+            //String 的Cookie　要转成　Cookie型的　并放入CookieContainer中
+            string[] cookstr = cookieStr.Split(';');
+
+            foreach (string str in cookstr)
+            {
+                string[] cookieNameValue = str.Split('=');
+                Cookie ck = new Cookie(cookieNameValue[0].Trim().ToString(), cookieNameValue[1].Trim().ToString());
+                ck.Domain = ".pixiv.net";
+                myCookieContainer.Add(ck);
+            }
+
+            Cookies = myCookieContainer;
         }
 
         public static void Init(string userName, string password)

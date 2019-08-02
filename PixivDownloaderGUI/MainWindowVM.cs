@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -150,7 +151,8 @@ namespace PixivDownloaderGUI
         /// </summary>
         private void ShowLoginWindowAndLogin()
         {
-            LoginWindow login = new LoginWindow();
+            //LoginWindow login = new LoginWindow();
+            WebLoginWindow login = new WebLoginWindow();
             if (login.ShowDialog() == true)
             {
                 DispatcherShowMessage("登录中...", false);
@@ -159,7 +161,8 @@ namespace PixivDownloaderGUI
                     try
                     {
                         //异步登陆
-                        if (LoginPixiv(login.UserName, login.Password))
+                        //if (LoginPixiv(login.UserName, login.Password))
+                        if (LoginPixiv(login.CookieStr))
                         {
                             DispatcherShowMessage("登录成功");
                         }
@@ -191,6 +194,12 @@ namespace PixivDownloaderGUI
         private bool LoginPixiv(string userName, string password)
         {
             LoginPage.Init(userName, password);
+            return LoginPage.LoginSuccess;
+        }
+
+        private bool LoginPixiv(string cookieStr)
+        {
+            LoginPage.Init(cookieStr);
             return LoginPage.LoginSuccess;
         }
 

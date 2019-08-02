@@ -56,7 +56,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestGetPostKey()
         {
-            LoginPage.Init("liuqi116688", "8236070");
+            LoginPage.Init("abc", "123");
         }
     }
 }
