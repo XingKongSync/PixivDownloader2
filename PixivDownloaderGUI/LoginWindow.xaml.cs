@@ -34,7 +34,7 @@ namespace PixivDownloaderGUI
         private void btLogin_Click(object sender, RoutedEventArgs e)
         {
             UserName = tbUserName.Text;
-            password = tbPassword.Password;
+            Password = tbPassword.Password;
 
             DialogResult = true;
         }
