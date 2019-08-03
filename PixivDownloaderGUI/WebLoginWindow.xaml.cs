@@ -39,6 +39,7 @@ namespace PixivDownloaderGUI
                     DialogResult = true;
                 }
             }
+            //Console.WriteLine(CookieStr);
         }
     }
 }

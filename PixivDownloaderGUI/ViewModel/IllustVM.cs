@@ -211,8 +211,22 @@ namespace PixivDownloaderGUI.ViewModel
                 }
                 catch (Exception)
                 {
-                    //下载时遇到错误
-                    dispatcher?.Invoke(() => { BtDownloadText = "下载失败"; });
+                    try
+                    {
+                        string newUrl = null;
+                        if (illust.LargePicUrl?.EndsWith(".jpg") == true)
+                        {
+                            newUrl = illust.LargePicUrl.Replace(".jpg", ".png");
+                        }
+                        string filePath = await FileManager.DownloadAsync(newUrl, ReferUrl);
+                        dispatcher?.Invoke(() => { BtDownloadText = "下载完成"; });
+                    }
+                    catch (Exception)
+                    {
+
+                        //下载时遇到错误
+                        dispatcher?.Invoke(() => { BtDownloadText = "下载失败"; });
+                    }
                 }
 
             }

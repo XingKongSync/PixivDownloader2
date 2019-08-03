@@ -65,6 +65,9 @@
     <Compile Include="Convert\RevertBooleanToVisibilityConverter.cs" />
     <Compile Include="Convert\StringToImageSourceConverter.cs" />
     <Compile Include="Convert\StringToVisibilityConverter.cs" />
+    <Compile Include="CookieLoginWindow.xaml.cs">
+      <DependentUpon>CookieLoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Global\SystemVars.cs" />
     <Compile Include="LoginWindow.xaml.cs">
@@ -79,6 +82,10 @@
     <Compile Include="WebLoginWindow.xaml.cs">
       <DependentUpon>WebLoginWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CookieLoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

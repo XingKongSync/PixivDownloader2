@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedSubString.cs" />
+    <Compile Include="Entity\CookieEntity.cs" />
     <Compile Include="Entity\RankPageResponseEntity.cs" />
     <Compile Include="Enum\Enum.cs" />
     <Compile Include="Convert\BoolToIntConverter.cs" />

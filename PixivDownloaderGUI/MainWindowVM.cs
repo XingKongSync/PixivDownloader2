@@ -152,7 +152,8 @@ namespace PixivDownloaderGUI
         private void ShowLoginWindowAndLogin()
         {
             //LoginWindow login = new LoginWindow();
-            WebLoginWindow login = new WebLoginWindow();
+            //WebLoginWindow login = new WebLoginWindow();
+            CookieLoginWindow login = new CookieLoginWindow();
             if (login.ShowDialog() == true)
             {
                 DispatcherShowMessage("登录中...", false);
