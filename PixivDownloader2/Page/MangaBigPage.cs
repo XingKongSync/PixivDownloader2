@@ -22,10 +22,10 @@ namespace PixivDownloader2.Page
         {
             base.Init(illustId);
 
-            var result = AdvancedSubString.SubString(html, "<img src=\"", "\" onclick=", 0, false, false);
+            var result = AdvancedSubString.SubString(html, "\"original\":\"", "\"},\"tags", 0, false, false);
             if (result != null && result.IsSuccess)
             {
-                LargePicUrl = result.ResultText;
+                LargePicUrl = result.ResultText.Replace("\\", "");
             }
         }
 
