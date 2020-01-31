@@ -27,7 +27,7 @@ namespace PixivDownloader2.Page
             //搜索缩略图url
             SubStringResult result = null;
             int startIndex = 0;
-            result = AdvancedSubString.SubString(html, "https:\\/\\/i.pximg.net\\/img-original", "\"},\"tags\":", startIndex, false, false);
+            result = AdvancedSubString.SubString(html, "https://i.pximg.net/img-original", "\"", startIndex, false, false);
             if (result.IsSuccess)
             {
                 string p0url = "https://i.pximg.net/img-original" + result.ResultText.Replace("\\", "");
@@ -41,7 +41,7 @@ namespace PixivDownloader2.Page
 
         protected override string GetPageUrl(string illustId)
         {
-            string pageUrl = PixivURLHelper.GetMangaPageUrl(IllustId);
+            string pageUrl = PixivURLHelper.GetIllustUrl(IllustId);
             return pageUrl;
         }
     }

@@ -43,6 +43,27 @@ namespace PixivDownloader2
             return await DownloadIfNotExistAsync(url, referUrl, DOWNLOAD_PATH);
         }
 
+        /// <summary>
+        /// 把漫画缓存文件夹中的文件拷贝到下载文件夹中
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="referUrl"></param>
+        /// <returns></returns>
+        public static async Task<string> CopyMangaPreviewToDownloads(string url, string referUrl)
+        {
+            string mangaPreviewFile = await MangaPreviewCacheAsync(url, referUrl);
+            if (!File.Exists(mangaPreviewFile))
+            {
+                throw new Exception("下载失败");
+            }
+            Uri uri = new Uri(url);
+            string fileName = Path.GetFileName(uri.LocalPath);
+            DirectoryInfo d = new DirectoryInfo(DOWNLOAD_PATH);
+            string fileFullPathAndName = Path.Combine(d.FullName, fileName);
+            File.Copy(mangaPreviewFile, fileFullPathAndName);
+            return fileFullPathAndName;
+        }
+
         private static async Task<string> DownloadIfNotExistAsync(string url, string referUrl, string directory)
         {
             Uri uri = new Uri(url);

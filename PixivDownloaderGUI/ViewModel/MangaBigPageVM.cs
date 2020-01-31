@@ -103,9 +103,8 @@ namespace PixivDownloaderGUI.ViewModel
         private async Task DownloadWorker()
         {
             BtDownloadEnabled = false;
-            MangaBigPage bigPage = new MangaBigPage(Page);
-            bigPage.Init(IllustId);
-            if (string.IsNullOrEmpty(bigPage.LargePicUrl))
+            MangaBigPage bigPage = new MangaBigPage(IllustId, ThumbnailFilePath);
+            if (string.IsNullOrEmpty(ThumbnailFilePath))
             {
                 dispatcher?.Invoke(() => { BtDownloadText = "下载失败"; });
             }
@@ -113,7 +112,7 @@ namespace PixivDownloaderGUI.ViewModel
             {
                 try
                 {
-                    string filePath = await FileManager.DownloadAsync(bigPage.LargePicUrl, bigPage.PageUrl);
+                    string filePath = await FileManager.CopyMangaPreviewToDownloads(ThumbnailFilePath, bigPage.PageUrl);
                     dispatcher?.Invoke(() => { BtDownloadText = "下载完成"; });
                 }
                 catch (Exception)

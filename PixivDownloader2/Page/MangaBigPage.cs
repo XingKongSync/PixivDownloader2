@@ -6,32 +6,36 @@ using System.Threading.Tasks;
 
 namespace PixivDownloader2.Page
 {
-    public class MangaBigPage : IllustPageBase
+    public class MangaBigPage
     {
+        private string illustId;
         private string largePicUrl;
-        private int page;
+        private string pageUrl;
 
         public string LargePicUrl { get => largePicUrl; set => largePicUrl = value; }
 
-        public MangaBigPage(int page)
+        public string PageUrl
         {
-            this.page = page;
-        }
-
-        public override void Init(string illustId)
-        {
-            base.Init(illustId);
-
-            var result = AdvancedSubString.SubString(html, "\"original\":\"", "\"},\"tags", 0, false, false);
-            if (result != null && result.IsSuccess)
+            get
             {
-                LargePicUrl = result.ResultText.Replace("\\", "");
+                if (string.IsNullOrEmpty(pageUrl))
+                {
+                    pageUrl = GetPageUrl();
+                }
+                return pageUrl;
             }
         }
 
-        protected override string GetPageUrl(string illustId)
+        public MangaBigPage(string illustId, string picUrl)
         {
-            return PixivURLHelper.GetMangaBigPageUrl(illustId, page);
+            this.illustId = illustId;
+            LargePicUrl = picUrl;
+        }
+
+
+        private string GetPageUrl()
+        {
+            return PixivURLHelper.GetIllustUrl(illustId);
         }
     }
 }
