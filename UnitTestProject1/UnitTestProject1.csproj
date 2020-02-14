@@ -55,6 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AI\AI.csproj">
+      <Project>{bd439d39-04b9-4ab4-9380-26ef2b394906}</Project>
+      <Name>AI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PixivDownloader2\PixivDownloader2.csproj">
       <Project>{162cbf31-7cba-4186-8ec3-78770bcfc13f}</Project>
       <Name>PixivDownloader2</Name>

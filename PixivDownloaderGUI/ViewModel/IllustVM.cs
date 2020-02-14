@@ -27,6 +27,8 @@ namespace PixivDownloaderGUI.ViewModel
         private int height;
         private int multiPageCount;
 
+        private float aiScore;
+
         private ContentsItem rawContentItem;
 
         private string btDownloadText = "下载";
@@ -105,6 +107,19 @@ namespace PixivDownloaderGUI.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasMultiPage)));
             }
         }
+        
+        /// <summary>
+        /// 人工智能评分
+        /// </summary>
+        public float AiScore
+        {
+            get => aiScore;
+            set
+            {
+                aiScore = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AiScore)));
+            }
+        }
 
         #region Download
         /// <summary>
@@ -161,6 +176,7 @@ namespace PixivDownloaderGUI.ViewModel
 
         /// <summary>
         /// 异步加载缩略图
+        /// 并对图片进行AI打分
         /// </summary>
         private async void LoadThumbnailAsync()
         {
@@ -168,6 +184,9 @@ namespace PixivDownloaderGUI.ViewModel
             {
                 string filePath = await FileManager.CacheAsync(RawContentItem.url, ReferUrl);
                 dispatcher?.Invoke(() => { PicFilePath = filePath; });
+
+                float score = await AI.JudgerManager.Instance.Value.JudgeAsync(filePath);
+                dispatcher?.Invoke(() => AiScore = score);
             }
             catch (Exception) { }
         }

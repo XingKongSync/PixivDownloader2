@@ -1,0 +1,1 @@
+make_image_classifier --image_dir pitcures dir --tfhub_module module --image_size 224 --saved_model_dir model --labels_output_file class_labels.txt --tflite_output_file new_mobile_model.tflite

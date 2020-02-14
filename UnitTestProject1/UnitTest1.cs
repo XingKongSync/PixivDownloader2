@@ -4,6 +4,7 @@ using PixivDownloader2;
 using PixivDownloader2.Enum;
 using PixivDownloader2.Page;
 using PixivDownloader2.Entity;
+using AI;
 
 namespace UnitTestProject1
 {
@@ -57,6 +58,36 @@ namespace UnitTestProject1
         public void TestGetPostKey()
         {
             LoginPage.Init("abc", "123");
+        }
+
+        [TestMethod]
+        public void TestAI()
+        {
+            Judger judger = new Judger();
+            judger.Start();
+
+            string[] images = new string[]
+            {
+                @"D:\My Media\My Pictures\Favourite\Other-纵向8\0001.JPG",
+                @"D:\My Media\My Pictures\Favourite\Other-纵向8\0020.JPG",
+                @"D:\My Media\My Pictures\Favourite\Other-纵向8\0100.JPG",
+                @"D:\My Media\My Pictures\2019-10-03 国庆回家\IMG_2340.jpg"
+            };
+
+            foreach (var img in images)
+            {
+                float score = judger.GetImageRank(img);
+
+                Console.WriteLine(img);
+                Console.Write($"score: {score}, ");
+                if (score >= 0.5)
+                    Console.WriteLine("是涩图");
+                else
+                    Console.WriteLine("不是涩图");
+                Console.WriteLine();
+            }
+
+            judger.Stop();
         }
     }
 }
