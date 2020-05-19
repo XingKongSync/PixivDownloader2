@@ -28,7 +28,7 @@ namespace PixivDownloader2
                     int subEndIndex = e;
                     if (includeEnd)
                     {
-                        subEndIndex = e = end.Length;
+                        subEndIndex = e + end.Length;
                     }
                     result.ResultText = source.Substring(subStartIndex, subEndIndex - subStartIndex);
                 }

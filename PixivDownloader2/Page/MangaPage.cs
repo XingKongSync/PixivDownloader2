@@ -27,10 +27,10 @@ namespace PixivDownloader2.Page
             //搜索缩略图url
             SubStringResult result = null;
             int startIndex = 0;
-            result = AdvancedSubString.SubString(html, "https://i.pximg.net/img-original", "\"", startIndex, false, false);
+            result = AdvancedSubString.SubString(html, "\"original\":\"", "\"},\"", startIndex, false, false);
             if (result.IsSuccess)
             {
-                string p0url = "https://i.pximg.net/img-original" + result.ResultText.Replace("\\", "");
+                string p0url = result.ResultText;
                 ThumbnailUrls.Add(p0url);
                 for (int i = 1; i < pageCount; i++)
                 {

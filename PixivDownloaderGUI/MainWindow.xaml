@@ -14,6 +14,7 @@
         <convert:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
         <convert:RevertBooleanToVisibilityConverter x:Key="RevertBooleanToVisibilityConverter"/>
         <convert:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        <convert:BorderColorConvert x:Key="BorderColorConvert"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <SolidColorBrush x:Key="TransparentBackground" Color="#7F000000"/>
     </Window.Resources>
@@ -65,7 +66,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="1" Padding="5" BorderBrush="#FFD4D4D4">
+                    <Border BorderThickness="1" Padding="5" BorderBrush="#FFD4D4D4" Background="{Binding AiScore,Converter={StaticResource BorderColorConvert}}">
                         <Grid Height="300" Width="300">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
