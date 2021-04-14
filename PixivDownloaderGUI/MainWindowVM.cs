@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -20,6 +21,7 @@ namespace PixivDownloaderGUI
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private object _collectionLock = new object();
         private ObservableCollection<IllustVM> illustCollection;
         private Dispatcher dispatcher;
         private string alertMessage;
@@ -32,7 +34,11 @@ namespace PixivDownloaderGUI
         {
             get
             {
-                illustCollection = illustCollection ?? new ObservableCollection<IllustVM>();
+                if (illustCollection == null)
+                {
+                    illustCollection = new ObservableCollection<IllustVM>();
+                    BindingOperations.EnableCollectionSynchronization(illustCollection, _collectionLock);
+                }
                 return illustCollection;
             }
             set
@@ -179,7 +185,7 @@ namespace PixivDownloaderGUI
                         return;
                     }
                     //更新界面登陆状态
-                    DispatcherUpdateLoginStatus();
+                    UpdateLoginStatus();
                     //异步加载排行榜
                     LoadRankPage();
                 });
@@ -252,19 +258,19 @@ namespace PixivDownloaderGUI
         /// </summary>
         private void LoadRankPage()
         {
-            dispatcher?.Invoke(() => IllustCollection.Clear());
+            //dispatcher?.Invoke(() => IllustCollection.Clear());
+            lock (_collectionLock)
+                IllustCollection.Clear();
             
             page = new RankPage();
             page.Init((RankType)RankPageType, 1, RankDate, false);
-            dispatcher.Invoke(() =>
+            //更新排行榜日期及其他信息
+            UpateRankDate();
+            foreach (var content in page.IllustCollection)
             {
-                //更新排行榜日期及其他信息
-                UpateRankDate();
-                foreach (var content in page.IllustCollection)
-                {
+                lock (_collectionLock)
                     IllustCollection.Add(new IllustVM(dispatcher, content, page.ReferUrl));
-                }
-            });
+            }
         }
 
         public void LazyLoadAsync()
@@ -286,11 +292,9 @@ namespace PixivDownloaderGUI
                 {
                     DispatcherShowMessage("加载中...", false);
                     var picList = page.LazyLoad();
-                    dispatcher.Invoke(async () =>
-                    {
+                    lock (_collectionLock)
                         picList?.ForEach(p => IllustCollection.Add(new IllustVM(dispatcher, p, page.ReferUrl)));
-                        await ShowMessage(null);
-                    });
+                    ShowMessage(null);
                 }
             }
         }
@@ -309,14 +313,6 @@ namespace PixivDownloaderGUI
         }
 
         /// <summary>
-        /// 异步更新界面上的登陆状态
-        /// </summary>
-        private void DispatcherUpdateLoginStatus()
-        {
-            dispatcher?.Invoke(() => UpdateLoginStatus());
-        }
-
-        /// <summary>
         /// 更新界面上的登陆状态
         /// </summary>
         private void UpdateLoginStatus()
@@ -329,7 +325,7 @@ namespace PixivDownloaderGUI
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        private  void DispatcherShowMessage(string msg, bool autoDismiss = true)
+        private void DispatcherShowMessage(string msg, bool autoDismiss = true)
         {
             dispatcher?.Invoke(async () =>
             {

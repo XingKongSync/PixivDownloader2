@@ -73,8 +73,8 @@ namespace PixivDownloader2
             if (!File.Exists(fileFullPathAndName))
             {
                 //说明此文件不存在，则创建
-                PictureDownloader downloader = new PictureDownloader(referUrl);
-                await downloader.DownloadAsync(url, Path.Combine(directory, fileName));
+                //PictureDownloader downloader = new PictureDownloader(referUrl);
+                await PictureDownloader.Instance.DownloadAsync(referUrl, url, Path.Combine(directory, fileName));
             }
             return fileFullPathAndName;
         }
